@@ -26,14 +26,14 @@ jobs:
         with:
           buildkitd-flags: --debug
       
-      - uses: docker/login-action@v2
+      - uses: docker/login-action@v3
         with:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
           logout: false
       
-      - uses: docker/build-push-action@v4
+      - uses: docker/build-push-action@v5
         with:
           context: ./apps/${{ matrix.app }}
           file: ./apps/${{ matrix.app }}/Dockerfile
