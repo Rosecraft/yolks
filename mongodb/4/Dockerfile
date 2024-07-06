@@ -1,14 +1,21 @@
 # ----------------------------------
 # Environment: MongoDB
 # ----------------------------------
-FROM        --platform=$TARGETOS/$TARGETARCH mongo:5-focal
+FROM        --platform=$TARGETOS/$TARGETARCH mongo:4-focal
 
 LABEL       author="Michael Parker" maintainer="parker@pterodactyl.io"
 
 ENV         DEBIAN_FRONTEND noninteractive
 
+RUN apt-get update \
+    && apt-get install -y gnupg2 gnupg gnupg1
+
+RUN apt-key del 656408E390CFB1F5 \
+    && apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 656408E390CFB1F5 \
+    && apt-get update
+
 RUN         apt update -y \
-            && apt install -y netcat iproute2 \
+            && apt install -y netcat-openbsd iproute2 \
             && useradd -d /home/container -m container -s /bin/bash
 
 USER        container
