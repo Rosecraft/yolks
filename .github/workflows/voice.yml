@@ -27,7 +27,7 @@ jobs:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
-          logout: false
+
       - uses: docker/build-push-action@v5
         with:
           context: ./voice/${{ matrix.tag }}
@@ -58,7 +58,7 @@ jobs:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
-          logout: false
+
       - uses: docker/build-push-action@v5
         with:
           context: ./voice/${{ matrix.tag }}
