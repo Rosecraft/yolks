@@ -7,8 +7,6 @@ LABEL       author="Michael Parker" maintainer="parker@pterodactyl.io"
 
 ENV         DEBIAN_FRONTEND noninteractive
 
-RUN curl -fsSL https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x656408E390CFB1F5 | apt-key add -
-
 RUN         apt update -y \
             && apt install -y netcat-openbsd iproute2 \
             && useradd -d /home/container -m container -s /bin/bash
