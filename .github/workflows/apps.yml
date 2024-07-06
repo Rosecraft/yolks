@@ -26,13 +26,13 @@ jobs:
         with:
           buildkitd-flags: --debug
       
-      - uses: docker/login-action@v3
+      - uses: docker/login-action@v2
         with:
           registry: ghcr.io
-          username: "Rosecraft"
-          password: ${{ secrets.GITHUB_TOKEN }}
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
       
-      - uses: docker/build-push-action@v5
+      - uses: docker/build-push-action@v4
         with:
           context: ./apps/${{ matrix.app }}
           file: ./apps/${{ matrix.app }}/Dockerfile
