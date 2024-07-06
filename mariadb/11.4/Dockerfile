@@ -1,28 +1,21 @@
 # -----------------------------------------------------
 # MariaDB Image for Pterodactyl
 # -----------------------------------------------------
-FROM --platform=$TARGETOS/$TARGETARCH mariadb:11.4
+FROM        --platform=$TARGETOS/$TARGETARCH mariadb:11.4
 
-LABEL author="Michael Parker" maintainer="parker@pterodactyl.io"
+LABEL       author="Michael Parker" maintainer="parker@pterodactyl.io"
 
-ENV DEBIAN_FRONTEND noninteractive
+ENV         DEBIAN_FRONTEND noninteractive
 
-# Update package list, install netcat, and add 'container' user
-RUN apt update -y \
-    && apt install -y netcat \
-    && useradd -d /home/container -m container -s /bin/bash
+RUN echo "deb http://archive.ubuntu.com/ubuntu noble main universe" > /etc/apt/sources.list
 
-# Switch to the 'container' user
-USER container
+RUN         apt update -y \
+            && apt install -y netcat \
+            && useradd -d /home/container -m container -s /bin/bash
 
-# Set environment variables
-ENV USER=container HOME=/home/container
+USER        container
+ENV         USER=container HOME=/home/container
+WORKDIR     /home/container
 
-# Set working directory
-WORKDIR /home/container
-
-# Copy entrypoint script from the build context to the container
-COPY entrypoint.sh /entrypoint.sh
-
-# Specify the command to run when the container starts
+COPY        ../entrypoint.sh /entrypoint.sh
 CMD ["/bin/bash", "/entrypoint.sh"]
