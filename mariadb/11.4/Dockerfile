@@ -7,10 +7,8 @@ LABEL       author="Michael Parker" maintainer="parker@pterodactyl.io"
 
 ENV         DEBIAN_FRONTEND noninteractive
 
-RUN echo "deb http://archive.ubuntu.com/ubuntu noble main universe" > /etc/apt/sources.list
-
 RUN         apt update -y \
-            && apt install -y netcat \
+            && apt install -y netcat-openbsd \
             && useradd -d /home/container -m container -s /bin/bash
 
 USER        container
