@@ -7,8 +7,11 @@ LABEL       author="Michael Parker" maintainer="parker@pterodactyl.io"
 
 ENV         DEBIAN_FRONTEND noninteractive
 
-RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 656408E390CFB1F5
+RUN gpg --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 656408E390CFB1F5 \
+    || gpg --keyserver keyserver.ubuntu.com --recv-keys 656408E390CFB1F5 \
+    || gpg --keyserver pgp.mit.edu --recv-keys 656408E390CFB1F5
 
+RUN curl -fsSL https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x656408E390CFB1F5 | apt-key add -
 
 
 RUN         apt update -y \
