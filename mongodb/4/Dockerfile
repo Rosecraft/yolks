@@ -7,6 +7,12 @@ LABEL       author="Michael Parker" maintainer="parker@pterodactyl.io"
 
 ENV         DEBIAN_FRONTEND noninteractive
 
+RUN apt-key del 656408E390CFB1F5
+
+RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 656408E390CFB1F5
+
+RUN apt-get update
+
 RUN         apt update -y \
             && apt install -y netcat-openbsd iproute2 \
             && useradd -d /home/container -m container -s /bin/bash
